@@ -1,12 +1,3 @@
-/**  
- * @Title:  ArrayList.java   
- * @Package tech.feily.algorithm.my   
- * @Description:    TODO(用一句话描述该文件做什么)   
- * @author: Feily Zhang     
- * @date:   2019年1月28日 下午4:22:12   
- * @version V1.0 
- * @Copyright: All rights Reserved, Designed By https://feily.tech
- */
 package tech.feily.dataStructure;
 
 import java.util.Arrays;
