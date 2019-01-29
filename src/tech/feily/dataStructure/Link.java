@@ -132,10 +132,10 @@ public class Link {
         if (index < size) {
             if (size == 0) {
                 return;
-            } else if (index == 0) {    //等同于直接插入链首
+            } else if (index == 0) {    //等同于直接删除链首
                 removeFirst();
                 return;
-            } else if (index == size - 1) {
+            } else if (index == size - 1) {    //等同于直接删除链尾
                removeLast();
                return;
             } else {
