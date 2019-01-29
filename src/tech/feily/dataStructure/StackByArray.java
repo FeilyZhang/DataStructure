@@ -3,7 +3,7 @@ package tech.feily.dataStructure;
 import java.util.Arrays;
 
 /**
- * @author Administrator 
+ * @author : Feily Zhang
  * @date : 2019-1-29 15:16:09
  * @version : V1.0 
  * @Description :  
