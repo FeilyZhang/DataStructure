@@ -20,8 +20,31 @@ public class HashTable {
         return key % table.length;
     }
     
+    /*
+     * emmm,扩容需要先增加数组Entry型数组table的长度
+     * emmm,另一方面需要把链表上的碰撞元素重新进行哈希再散列
+     */
     public void resize() {
-        
+        int newLength = table.length * 2;
+        Entry[] oldTable = table;
+        table = new Entry[newLength];
+        use = 0;
+        for (int i = 0; i < table.length; i++) {    //该层循环遍历数组table上的每个地址
+            if (oldTable[i] != null && oldTable[i].next != null) {
+                Entry e = oldTable[i];  //先获取该地址上的值，再通过判断看该地址是否有链表
+                while (e.next != null) {
+                    Entry next = e.next;
+                    // 重新计算哈希值，再次进行散列，这里的逻辑和put里的部分逻辑一致
+                    int index = hash(next.key);
+                    if (table[index] == null) {
+                        use ++;
+                        table[index] = new Entry(-1, -1, null);
+                    }
+                    table[index].next = new Entry(next.key, next.value, table[index].next);
+                    e = next;
+                }
+            }
+        }
     }
     
     public void put(int key, int value) {
@@ -93,4 +116,13 @@ public class HashTable {
         }
         return -1;
     }
+    
+    public int size() {
+        return size;
+    }
+    
+    public int length() {
+        return table.length;
+    }
+    
 }
