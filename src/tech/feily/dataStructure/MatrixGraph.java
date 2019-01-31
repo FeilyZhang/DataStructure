@@ -69,14 +69,60 @@ public class MatrixGraph {
         }
     }
     
+    /*
+     * emmm,从visited数组(顶点数组被访问状态数组)中找未被访问过的顶点
+     * emmm,由于顶点在遍历中是唯一的，那么只要该顶点被探索，那么此后就一定不会再被探索
+     */
+    public int getUnVisited(int[] visited) {
+        int index = -1;
+        for (int i = 0; i < visited.length; i++) {
+            if (visited[i] == 0) {
+                index = i;
+                break;
+            }
+        }
+        return index;
+    }
+    public void depthFirstTravel() {
+        System.out.println("Depth-first traversal of adjacency matrix:");
+        StackByArray stack = new StackByArray(mapping.length);
+        int[] visited = new int[mapping.length];  // 初始化各顶点被访问状态，全部为0
+        int unVisited = getUnVisited(visited);  // 从顶点被访问状态数组中找到一个未被访问过的顶点
+        // 如果顶点都被访问，那额会返回-1，即会跳出该循环，代表遍历结束
+        while (unVisited >= 0) {
+            visited[unVisited] = 1;
+            stack.push(unVisited);
+            System.out.print(mapping[unVisited] + ",");
+            while (!stack.isEmpty()) {
+                int index = stack.peek();
+                boolean found = false;
+                for (int i = 0; i < mapping.length; i++) {
+                    if (index != i && visited[i] == 0 && matrix[index][i] != null) {
+                        visited[i] = 1;
+                        stack.push(i);
+                        System.out.print(mapping[i] + ",");
+                        found = true;
+                        break;
+                    }
+                }
+                if (!found) {
+                    stack.pop();
+                }
+            }
+            unVisited = getUnVisited(visited);
+        }
+        System.out.println();
+    }
     public static void main(String[] args) {
-        Integer[] vertexes = {0, 1, 2, 3};
+        Integer[] vertexes = {0, 1, 2, 3, 4, 5, 6};
         MatrixGraph graph = new MatrixGraph(vertexes);
         graph.addEdge(0, 1);
         graph.addEdge(0, 2);
-        graph.addEdge(0, 3);
-        graph.addEdge(1, 2);
-        graph.addEdge(3, 2);
+        graph.addEdge(1, 3);
+        graph.addEdge(1, 4);
+        graph.addEdge(2, 5);
+        graph.addEdge(2, 6);
         graph.printMatrix();
+        graph.depthFirstTravel();
     }
 }
