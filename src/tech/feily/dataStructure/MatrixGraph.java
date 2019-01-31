@@ -113,6 +113,40 @@ public class MatrixGraph {
         }
         System.out.println();
     }
+    
+    public void breadthFirstTravel() {
+        System.out.println("Breadth-first traversal of adjacency matrix:");
+        QueueByArray queue = new QueueByArray(mapping.length);
+        int[] visited = new int[mapping.length];
+        int unVisited = getUnVisited(visited);
+        while (unVisited >= 0) {    //那么说明还有未探索的顶点
+            // 起始顶点入队
+            queue.push(unVisited);
+            while (!queue.isEmpty()) {  //队列不为空，那么说明还有顶点未被探索
+                int index = (Integer) queue.pop();
+                if (visited[index] == 1) {
+                    continue;
+                }
+                System.out.print(mapping[index] + ",");
+                // 标记被访问
+                visited[index] = 1;
+                // 遍历所有未被访问的邻接结点并放入队列，即遍历与index同行的所欲符合条件的顶点，用树来表示就是当前index顶点的下一层
+                // 简言之，即广度优先
+                for (int i = 0; i < mapping.length; i++) {
+                    // 不能是自己、未被访问、可到达
+                    if (index != i && visited[i] == 0 && matrix[index][i] != null) {
+                        queue.push(i);
+                    }
+                }
+                // 跳出上述循环，那么代表与index同行的顶点均被放入队列中，那么就要依次出队，再次遍历和探索出队顶点所在行的所有元素
+            }
+            // 当队列为空后那么与该起始顶点及其子顶点相关的所有顶点均被探索，那么还有可能存在孤立的顶点
+            // 再次寻找未被探索的顶点(孤立顶点)再次执行相关操作
+            unVisited = getUnVisited(visited);
+        }
+        System.out.println();
+    }
+    
     public static void main(String[] args) {
         Integer[] vertexes = {0, 1, 2, 3, 4, 5, 6};
         MatrixGraph graph = new MatrixGraph(vertexes);
@@ -124,5 +158,6 @@ public class MatrixGraph {
         graph.addEdge(2, 6);
         graph.printMatrix();
         graph.depthFirstTravel();
+        graph.breadthFirstTravel();
     }
 }
