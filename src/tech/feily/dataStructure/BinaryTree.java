@@ -125,4 +125,34 @@ public class BinaryTree {
             return getParent(subTree.getRightChild(), node);
         }
     }
+    
+    /*
+     * emmm,获取某个节点的左子树，可以直接返回该节点的左孩子
+     */
+    public BinaryTreeNode getLeftTree(BinaryTreeNode node) {
+        return node.getLeftChild();
+    }
+    
+    /*
+     * emmm,获取某个节点的右子树，可以直接返回该节点的右孩子
+     */
+    public BinaryTreeNode getRightTree(BinaryTreeNode node) {
+        return node.getRightChild();
+    }
+    
+    /*
+     * emmm,二叉树的左插入
+     * emmm,直接让父节点设置左孩子为结点node，如果该父节点parent已经有左孩子那么该操作会覆盖原先的孩子节点
+     */
+    public void insertLeft(BinaryTreeNode parent, BinaryTreeNode node) {
+        parent.setLeftChild(node);
+    }
+
+    /*
+     * emmm,二叉树的右插入
+     * emmm,直接让父节点设置右孩子为结点node，如果该父节点parent已经有右孩子那么该操作会覆盖原先的孩子节点
+     */
+    public void insertRight(BinaryTreeNode parent, BinaryTreeNode node) {
+        parent.setRightChild(node);
+    }
 }
