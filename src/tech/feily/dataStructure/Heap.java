@@ -42,4 +42,24 @@ public class Heap {
         }
         elements[0] ++; //元素个数加一
     }
+    
+    /*
+     * emmm,打印的方法很简单，因为堆是用数组模拟的，那么直接遍历数组即可
+     */
+    public void printAll() {
+        for (int element : elements) {
+            System.out.print(element + " ");
+        }
+        System.out.println();
+    }
+    
+    public static void main(String[] args) {
+        Heap heap = new Heap(10);
+        heap.insert(12);
+        heap.insert(21);
+        heap.insert(6);
+        heap.insert(35);
+        heap.insert(58);
+        heap.printAll();
+    }
 }
